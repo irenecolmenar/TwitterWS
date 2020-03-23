@@ -56,7 +56,7 @@ public class TweetController {
         return tweetService.getValidatedTweets();
     }
 
-    @GetMapping ("/mostUsed")
+    @GetMapping ("/mostUsedHashtags")
     @ApiOperation(value = "Get the most used hashtags")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Successfully retrieved tweets")})
