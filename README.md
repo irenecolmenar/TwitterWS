@@ -40,8 +40,11 @@ You can test them using postman or any other rest client.
 
 ## Default users
   name, username, location, followers
+  
   'María', 'mariaperez', 'Madrid', 1500
+  
   'John', 'johndoe', 'Madrid', 5
+  
   'Juan', 'juancastro', 'Barcelona', 3000
   
 They can be changed modifyin the data.sql file inside resources.
