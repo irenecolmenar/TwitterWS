@@ -18,6 +18,7 @@ public class Tweet {
 
     private Date created_at;
 
+    @Column( length = 100000 )
     private String text;
 
     private String location;

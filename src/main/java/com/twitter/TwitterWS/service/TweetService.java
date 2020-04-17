@@ -15,6 +15,7 @@ import com.twitter.TwitterWS.service.interfaces.TweetInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import twitter4j.Status;
 
 import java.util.*;
 import java.util.regex.Matcher;
@@ -25,8 +26,6 @@ import java.util.stream.Collectors;
 public class TweetService implements TweetInterface {
 
     private final Pattern MY_PATTERN = Pattern.compile("#(\\S+)");
-    private final int MIN_FOLLOWERS = 1500;
-    private final List<String> ALLOWED_LANGUAGES = Arrays.asList("es", "it", "fr");
     private final int NUM_TOP_HASHTAGS = 10;
 
     @Autowired
@@ -37,28 +36,32 @@ public class TweetService implements TweetInterface {
     private HashtagRepository hashtagRepository;
 
     @Override
-    public Integer createTweet(final String text,
-                               final String username,
-                               final String location) throws Exception {
+    public void createTweet(final Status status) {
 
-        Optional<User> optUser = userRepository.findByUsername(username);
-        if (optUser.isEmpty() || optUser.get().getFollowers() < MIN_FOLLOWERS) {
-            throw new UserNotValidException(username);
+        storeHashTags(status.getText());
+
+        Optional<User> optUser = userRepository.findByUsername(status.getUser().getName());
+        User u;
+        if (optUser.isEmpty()) {
+            u = new User().builder()
+                    .username(status.getUser().getName())
+                    .location(status.getUser().getLocation())
+                    .name(status.getUser().getScreenName())
+                    .followers(status.getUser().getFollowersCount())
+                    .build();
+                userRepository.save(u);
+        } else {
+             u = optUser.get();
         }
 
-        storeHashTags(text);
-        validLanguage(text);
-
         Tweet t = Tweet.builder()
-                .text(text)
-                .user(optUser.get())
-                .location(location)
+                .text(status.getText())
+                .user(u)
+                .location(status.getUser().getLocation())
                 .created_at(new Date())
                 .build();
 
         tweetRepository.save(t);
-
-        return t.getId();
     }
 
     @Override
@@ -125,13 +128,6 @@ public class TweetService implements TweetInterface {
                 });
     }
 
-    public void validLanguage(String text) throws APIError {
-        DetectLanguage.apiKey = "472004cb05be5542014a4bff177c2f89";
-        List<Result> languages = DetectLanguage.detect(text);
-        for (Result l: languages) {
-            if (!ALLOWED_LANGUAGES.contains(l.language)) {
-                throw new LanguageNotValidException(l.language);
-            }
-        }
-    }
+
+
 }

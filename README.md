@@ -1,5 +1,8 @@
 # TwitterWS
-Build Restful CRUD API for a simple Twitter application using Spring Boot, H2, JPA and Hibernate.
+
+Build Restful CRUD API for a simple microservice which consumes Tweets from Twitter and persist them in an in-memory database.
+
+It is build with Spring Boot, JPA, Hibernate, twitter4j and an H2 in-memory database.
 
 ## Requirements
 
@@ -21,12 +24,9 @@ The app will start running at http://localhost:8080.
 
 The app will start running at http://localhost:8080/swagger-ui.html
 
-
 ## Explore Rest APIs
 
 The app defines following CRUD APIs:
-
-  POST /tweet/create
 
   GET /tweet
 
@@ -38,10 +38,3 @@ The app defines following CRUD APIs:
 
 You can test them using postman or any other rest client.
 
-## Default users
-  name, username, location, followers
-  'María', 'mariaperez', 'Madrid', 1500
-  'John', 'johndoe', 'Madrid', 5
-  'Juan', 'juancastro', 'Barcelona', 3000
-  
-They can be changed modifyin the data.sql file inside resources.

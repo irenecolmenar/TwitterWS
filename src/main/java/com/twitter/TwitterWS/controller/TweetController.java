@@ -19,18 +19,6 @@ public class TweetController {
     @Autowired
     private TweetService tweetService;
 
-    @PostMapping("/create")
-    @ApiOperation(value = "Creates a new tweet")
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Successfully created tweet"),
-            @ApiResponse(code = 400, message = "The request was malformed")
-    })
-    public Integer createTweet (@RequestParam final String text,
-                                @RequestParam final String username,
-                                @RequestParam final String location) throws Exception {
-        return tweetService.createTweet(text, username, location);
-    }
-
     @GetMapping
     @ApiOperation(value = "get all tweets")
     @ApiResponses(value = {

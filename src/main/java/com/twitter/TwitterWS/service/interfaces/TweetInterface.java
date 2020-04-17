@@ -1,13 +1,12 @@
 package com.twitter.TwitterWS.service.interfaces;
 
 import com.twitter.TwitterWS.persistence.model.Tweet;
+import twitter4j.Status;
 
 import java.util.List;
 
 public interface TweetInterface {
-    Integer createTweet(final String text,
-                        final String username,
-                        final String location) throws Exception;
+    void createTweet(final Status status) throws Exception;
 
     List<Tweet> getTweetsByUsername(final String username) ;
 
