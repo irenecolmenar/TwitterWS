@@ -44,6 +44,14 @@ public class TweetController {
         return tweetService.getValidatedTweets();
     }
 
+    @GetMapping("/validated/{username}")
+    @ApiOperation(value = "Get all validated tweets by username")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Successfully retrieved tweets")})
+    public List<Tweet> getValidatedTweetsByUserName(@PathVariable String username) {
+        return tweetService.getValidatedTweetsByUsername(username);
+    }
+
     @GetMapping ("/mostUsedHashtags")
     @ApiOperation(value = "Get the most used hashtags")
     @ApiResponses(value = {

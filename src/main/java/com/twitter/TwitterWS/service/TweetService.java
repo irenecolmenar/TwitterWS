@@ -40,13 +40,13 @@ public class TweetService implements TweetInterface {
 
         storeHashTags(status.getText());
 
-        Optional<User> optUser = userRepository.findByUsername(status.getUser().getName());
+        Optional<User> optUser = userRepository.findByUsername(status.getUser().getScreenName());
         User u;
         if (optUser.isEmpty()) {
             u = new User().builder()
-                    .username(status.getUser().getName())
+                    .username(status.getUser().getScreenName())
                     .location(status.getUser().getLocation())
-                    .name(status.getUser().getScreenName())
+                    .name(status.getUser().getName())
                     .followers(status.getUser().getFollowersCount())
                     .build();
                 userRepository.save(u);
@@ -82,6 +82,14 @@ public class TweetService implements TweetInterface {
     @Override
     public List<Tweet> getValidatedTweets() {
         return tweetRepository.findAllByValidatedTrue();
+    }
+
+    @Override
+    public List<Tweet> getValidatedTweetsByUsername(String username) {
+        Optional<User> optU = userRepository.findByUsername(username);
+        if (optU.isEmpty())
+            return null;
+        return tweetRepository.findAllByValidatedTrueAndUser(optU.get());
     }
 
     @Override

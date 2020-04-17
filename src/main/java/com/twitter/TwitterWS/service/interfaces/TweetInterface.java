@@ -14,6 +14,8 @@ public interface TweetInterface {
 
     List<Tweet> getValidatedTweets();
 
+    List<Tweet> getValidatedTweetsByUsername(final String username);
+
     List<String> topTenHashtags();
 
     void validateTweet(final Integer idTweet);

@@ -10,5 +10,6 @@ public interface TweetRepository extends CrudRepository<Tweet, Integer> {
     List<Tweet> findAll();
     List<Tweet> findAllByUser(User user);
     List<Tweet> findAllByValidatedTrue();
+    List<Tweet> findAllByValidatedTrueAndUser(User u);
 
 }
