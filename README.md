@@ -22,7 +22,7 @@ The app will start running at http://localhost:8080.
 
 ## Swagger
 
-The app will start running at http://localhost:8080/swagger-ui.html
+Swagger documentation can be found at http://localhost:8080/swagger-ui.html
 
 ## Explore Rest APIs
 
@@ -36,5 +36,5 @@ The app defines following CRUD APIs:
 
   POST /tweet/validate
 
-You can test them using postman or any other rest client.
+You can test them using postman or any other rest client as well as using swagger.
 
